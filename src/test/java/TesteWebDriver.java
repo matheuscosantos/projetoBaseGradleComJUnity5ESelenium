@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TesteWebDriver {
 
     private WebDriver driver;
-    private WebElement searchBox;
-    private WebElement searchResults;
 
     @BeforeEach
     public void abreNavegador(){
