@@ -1,7 +1,6 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,16 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TesteWebDriver {
 
-    private WebDriver driver;
+    private static WebDriver driver;
+    private WebElement searchBox;
+    private WebElement searchResults;
 
-    @BeforeEach
-    public void abreNavegador(){
+    @BeforeAll
+    public static void abreNavegador(){
         System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
-    @AfterEach
-    public void fechaNavegador(){
+    @AfterAll
+    public static void fechaNavegador(){
         driver.close();
     }
 
