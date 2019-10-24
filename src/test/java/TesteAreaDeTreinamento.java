@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TesteAreaDeTreinamento {
 
@@ -112,5 +114,57 @@ public class TesteAreaDeTreinamento {
         combo.selectByVisibleText("O que eh esporte?");
         List<WebElement> todosElementosSelecionados = combo.getAllSelectedOptions();
         assertEquals(3,todosElementosSelecionados.size());
+    }
+
+    @Test
+    public void teste10ComboBoxEsportesDesselecionar(){
+        WebElement elemento = driver.findElement(By.id("elementosForm:esportes"));
+        Select combo = new Select(elemento);
+        combo.selectByVisibleText("Natacao");
+        combo.selectByVisibleText("Corrida");
+        combo.selectByVisibleText("O que eh esporte?");
+        combo.deselectByVisibleText("Natacao");
+        List<WebElement> todosElementosSelecionados = combo.getAllSelectedOptions();
+        assertEquals(2,todosElementosSelecionados.size());
+    }
+
+    @Test
+    public void teste11ButtonCliqueSimples(){
+        WebElement botao = driver.findElement(By.id("buttonSimple"));
+        botao.click();
+        assertEquals("Obrigado!",botao.getAttribute("value"));
+    }
+
+    @Test
+    public void teste12LinkClick(){
+        WebElement botao = driver.findElement(By.linkText("Voltar"));
+        botao.click();
+        String texto = driver.findElement(By.id("resultado")).getText();
+        assertEquals("Voltou!",texto);
+    }
+
+    @Test
+    @Disabled
+    public void teste13Ignore(){
+        WebElement botao = driver.findElement(By.linkText("Voltar"));
+        botao.click();
+    }
+
+    @Test
+    public void teste14BuscaTextoNaPagina(){
+        WebElement corpoDaPagina = driver.findElement(By.tagName("body"));
+        assertTrue(corpoDaPagina.getText().contains("Campo de Treinamento"));
+    }
+
+    @Test
+    public void teste15BuscaTextoPorTag(){
+        String titulo = driver.findElement(By.tagName("h3")).getText();
+        assertEquals("Campo de Treinamento", titulo);
+    }
+
+    @Test
+    public void teste16LocalizarTextoPorClasse(){
+        String titulo = driver.findElement(By.className("facilAchar")).getText();
+        assertEquals("Cuidado onde clica, muitas armadilhas...",titulo);
     }
 }
