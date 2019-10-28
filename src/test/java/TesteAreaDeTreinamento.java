@@ -2,6 +2,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +26,7 @@ public class TesteAreaDeTreinamento {
 
     @AfterAll
     public static void fechaNavegador() {
-        driver.close();
+        //driver.close();
     }
 
     @Test
@@ -166,5 +167,38 @@ public class TesteAreaDeTreinamento {
     public void teste16LocalizarTextoPorClasse(){
         String titulo = driver.findElement(By.className("facilAchar")).getText();
         assertEquals("Cuidado onde clica, muitas armadilhas...",titulo);
+    }
+
+    @Test
+    public void teste17AlertSimples(){
+        driver.findElement(By.id("alert")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Alert Simples",alert.getText());
+        alert.accept();
+        alert.dismiss();
+    }
+
+    @Test
+    public void teste18AlertConfirm(){
+        driver.findElement(By.id("confirm")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Confirm Simples",alert.getText());
+        alert.accept();
+        assertEquals("Confirmado",alert.getText());
+        alert.accept();
+    }
+
+    @Test
+    public void teste19Prompt(){
+        driver.findElement(By.id("prompt")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Digite um numero", alert.getText());
+        alert.sendKeys("Matheus");
+        alert.accept();
+        assertEquals("Era Matheus?", alert.getText());
+        alert.accept();
+        assertEquals(":D",alert.getText());
+        alert.accept();
+        alert.dismiss();
     }
 }
