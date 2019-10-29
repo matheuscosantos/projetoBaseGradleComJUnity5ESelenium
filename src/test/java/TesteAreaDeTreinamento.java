@@ -175,7 +175,7 @@ public class TesteAreaDeTreinamento {
         Alert alert = driver.switchTo().alert();
         assertEquals("Alert Simples",alert.getText());
         alert.accept();
-        alert.dismiss();
+        driver.switchTo().defaultContent();
     }
 
     @Test
@@ -186,6 +186,7 @@ public class TesteAreaDeTreinamento {
         alert.accept();
         assertEquals("Confirmado",alert.getText());
         alert.accept();
+        driver.switchTo().defaultContent();
     }
 
     @Test
@@ -199,6 +200,36 @@ public class TesteAreaDeTreinamento {
         alert.accept();
         assertEquals(":D",alert.getText());
         alert.accept();
-        alert.dismiss();
+        driver.switchTo().defaultContent();
+    }
+
+    @Test
+    public void teste20Iframe(){
+        driver.switchTo().frame("frame1");
+        driver.findElement(By.id("frameButton")).click();
+        Alert alert = driver.switchTo().alert();
+        String mensagemAlert = alert.getText();
+        assertEquals("Frame OK!",alert.getText());
+        alert.accept();
+        driver.switchTo().defaultContent();
+        driver.findElement(By.id("elementosForm:nome")).sendKeys(mensagemAlert);
+    }
+
+    @Test
+    public void teste21Janela(){
+        driver.findElement(By.id("buttonPopUpEasy")).click();
+        driver.switchTo().window("Popup");
+        driver.findElement(By.tagName("textarea")).sendKeys("Testa janela");
+        driver.close();
+        driver.switchTo().window("");
+    }
+
+    @Test
+    public void teste22WindowHandler(){
+        driver.findElement(By.id("buttonPopUpHard")).click();
+        driver.switchTo().window((String)driver.getWindowHandles().toArray()[1]);
+        driver.findElement(By.tagName("textarea")).sendKeys("Teste");
+        driver.close();
+        driver.switchTo().window((String)driver.getWindowHandles().toArray()[0]);
     }
 }
